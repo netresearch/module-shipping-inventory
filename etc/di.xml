@@ -5,4 +5,8 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- # interceptor plugins -->
+    <type name="Netresearch\ShippingCore\Api\PackagingPopup\RequestDataConverterInterface">
+        <plugin name="nrShippingInventoryAddSourceCode" type="Netresearch\ShippingInventory\Plugin\PackagingPopup\AddSourceToShipmentSaveRequest"/>
+    </type>
 </config>
