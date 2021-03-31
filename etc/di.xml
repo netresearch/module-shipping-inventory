@@ -5,6 +5,13 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- # argument di overrides -->
+    <type name="Netresearch\ShippingCore\Model\BulkShipment\BulkShipmentManagement">
+        <arguments>
+            <argument name="shipOrder" xsi:type="object">Netresearch\ShippingInventory\Model\BulkShipment\ShipOrder</argument>
+        </arguments>
+    </type>
+
     <!-- # interceptor plugins -->
     <type name="Netresearch\ShippingCore\Api\PackagingPopup\RequestDataConverterInterface">
         <plugin name="nrShippingInventoryAddSourceCode" type="Netresearch\ShippingInventory\Plugin\PackagingPopup\AddSourceToShipmentSaveRequest"/>

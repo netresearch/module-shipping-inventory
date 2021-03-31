@@ -8,6 +8,8 @@
     <module name="Netresearch_ShippingInventory">
         <sequence>
             <module name="Magento_Framework"/>
+            <module name="Magento_InventorySourceSelectionApi"/>
+            <module name="Magento_Sales"/>
             <module name="Netresearch_ShippingCore"/>
             <module name="Netresearch_ShippingUi"/>
         </sequence>
