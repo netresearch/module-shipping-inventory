@@ -136,7 +136,12 @@ class ShipOrder implements ShipOrderInterface
             $sources[] = $this->sourceProvider->getSourcesForSku((int) $orderId, $sku, $qty);
         }
 
-        $sources = array_intersect(...$sources);
+        if (count($sources) > 1) {
+            $sources = array_intersect(...$sources);
+        } else {
+            $sources = array_shift($sources);
+        }
+
         if (empty($sources)) {
             throw new CouldNotShipException(__('Unable to detect a common inventory source for shipping all items.'));
         }
