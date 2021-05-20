@@ -1,6 +1,6 @@
 {
   "name": "netresearch/module-shipping-inventory",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "magento2-module",
   "description": "Optional component adding Magento Inventory capabilities to the Netresearch shipping modules.",
   "license": "OSL-3.0",
