@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Netresearch\ShippingInventory\Model\BulkShipment;
 
 use Magento\Framework\Exception\LocalizedException;
-use Magento\InventorySourceSelectionApi\Api\Data\ItemRequestInterfaceFactory;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Api\Data\OrderItemInterface;
 use Magento\Sales\Api\Data\ShipmentCommentCreationInterface;
@@ -45,11 +44,6 @@ class ShipOrder implements ShipOrderInterface
     private $argumentsExtensionFactory;
 
     /**
-     * @var ItemRequestInterfaceFactory
-     */
-    private $itemRequestFactory;
-
-    /**
      * @var SourceProvider
      */
     private $sourceProvider;
@@ -63,14 +57,12 @@ class ShipOrder implements ShipOrderInterface
         OrderRepositoryInterface $orderRepository,
         ShipmentCreationArgumentsInterfaceFactory $argumentsFactory,
         ShipmentCreationArgumentsExtensionInterfaceFactory $argumentsExtensionFactory,
-        ItemRequestInterfaceFactory $itemRequestFactory,
         SourceProvider $sourceProvider,
         ShipOrderInterface $shipOrder
     ) {
         $this->orderRepository = $orderRepository;
         $this->argumentsFactory = $argumentsFactory;
         $this->argumentsExtensionFactory = $argumentsExtensionFactory;
-        $this->itemRequestFactory = $itemRequestFactory;
         $this->sourceProvider = $sourceProvider;
         $this->shipOrder = $shipOrder;
     }
@@ -104,7 +96,7 @@ class ShipOrder implements ShipOrderInterface
     {
         $requestedItemIds = array_reduce(
             $items,
-            function (array $result, ShipmentItemCreationInterface $item): array {
+            static function (array $result, ShipmentItemCreationInterface $item): array {
                 $result[] = $item->getOrderItemId();
                 return $result;
             },
@@ -113,7 +105,7 @@ class ShipOrder implements ShipOrderInterface
 
         $orderItems = array_filter(
             $order->getAllItems(),
-            function (OrderItemInterface $orderItem) use ($requestedItemIds): bool {
+            static function (OrderItemInterface $orderItem) use ($requestedItemIds): bool {
                 return in_array($orderItem->getId(), $requestedItemIds);
             }
         );

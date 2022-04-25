@@ -69,7 +69,7 @@ class SourceProvider
         $sourceSelectionResult = $this->sourceSelectionService->execute($inventoryRequest, $algorithmCode);
 
         return array_map(
-            function (SourceSelectionItemInterface $item) {
+            static function (SourceSelectionItemInterface $item) {
                 return $item->getSourceCode();
             },
             $sourceSelectionResult->getSourceSelectionItems()
