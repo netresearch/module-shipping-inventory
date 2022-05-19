@@ -23,9 +23,17 @@
   "require": {
     "php": "^7.2.0 || ^8.1.0",
     "magento/framework": "^102.0.0 || ^103.0.0",
+    "magento/module-bundle": "^100.3.0 || ^101.0.0",
+    "magento/module-catalog": "^103.0.0 || ^104.0.0",
+    "magento/module-configurable-product": "^100.3.0",
     "magento/module-inventory-source-selection-api": "^1.1.4",
     "magento/module-sales": "^102.0.0 || ^103.0.0",
     "netresearch/module-shipping-core": "^2.8.0",
     "netresearch/module-shipping-ui": "^2.3.0"
-  }
+  },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "1.1.1.x-dev"
+        }
+    }
 }

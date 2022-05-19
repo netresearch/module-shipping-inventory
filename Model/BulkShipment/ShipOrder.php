@@ -8,6 +8,9 @@ declare(strict_types=1);
 
 namespace Netresearch\ShippingInventory\Model\BulkShipment;
 
+use Magento\Bundle\Model\Product\Type as Bundle;
+use Magento\Catalog\Model\Product\Type\AbstractType;
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Api\Data\OrderItemInterface;
@@ -77,11 +80,36 @@ class ShipOrder implements ShipOrderInterface
     {
         $shipmentItems = [];
         foreach ($items as $item) {
-            if (!$item->getIsVirtual() && (!$item->getParentItem() || $item->isShipSeparately())) {
-                $qty = $shipmentItems[$item->getSku()] ?? 0;
-                $shipmentItems[$item->getSku()] = $qty + ($item->getQtyOrdered() - $item->getQtyShipped());
+            if ($item->getIsVirtual()) {
+                continue;
             }
+
+            if ($item->getParentItem() && $item->getParentItem()->getProductType() === Configurable::TYPE_CODE) {
+                // children of a configurable are not shipped, ignore.
+                continue;
+            }
+
+            if ($item->getParentItem() && $item->getParentItem()->getProductType() === Bundle::TYPE_CODE) {
+                $parentItem = $item->getParentItem();
+                $shipmentType = (int)$parentItem->getProductOptionByCode('shipment_type');
+                if ($shipmentType === AbstractType::SHIPMENT_TOGETHER) {
+                    // children of a bundle (shipped together) are not shipped, ignore.
+                    continue;
+                }
+            }
+
+            if ($item->getProductType() === Bundle::TYPE_CODE) {
+                $shipmentType = (int)$item->getProductOptionByCode('shipment_type');
+                if ($shipmentType === AbstractType::SHIPMENT_SEPARATELY) {
+                    // a bundle with children (shipped separately) is not shipped, ignore.
+                    continue;
+                }
+            }
+
+            $qty = $shipmentItems[$item->getSku()] ?? 0;
+            $shipmentItems[$item->getSku()] = $qty + ($item->getQtyOrdered() - $item->getQtyShipped());
         }
+
         return array_filter($shipmentItems);
     }
 

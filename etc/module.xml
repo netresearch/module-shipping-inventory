@@ -7,6 +7,9 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
     <module name="Netresearch_ShippingInventory">
         <sequence>
+            <module name="Magento_Bundle"/>
+            <module name="Magento_Catalog"/>
+            <module name="Magento_ConfigurableProduct"/>
             <module name="Magento_Framework"/>
             <module name="Magento_InventorySourceSelectionApi"/>
             <module name="Magento_Sales"/>
