@@ -80,6 +80,7 @@ class ShipOrder implements ShipOrderInterface
     {
         $shipmentItems = [];
         foreach ($items as $item) {
+			$this->_logger->info('item:' . $item->getSku() . ' gty:' . $item->getQtyOrdered());			
             if ($item->getIsVirtual()) {
                 continue;
             }
@@ -89,21 +90,8 @@ class ShipOrder implements ShipOrderInterface
                 continue;
             }
 
-            if ($item->getParentItem() && $item->getParentItem()->getProductType() === Bundle::TYPE_CODE) {
-                $parentItem = $item->getParentItem();
-                $shipmentType = (int)$parentItem->getProductOptionByCode('shipment_type');
-                if ($shipmentType === AbstractType::SHIPMENT_TOGETHER) {
-                    // children of a bundle (shipped together) are not shipped, ignore.
-                    continue;
-                }
-            }
-
             if ($item->getProductType() === Bundle::TYPE_CODE) {
-                $shipmentType = (int)$item->getProductOptionByCode('shipment_type');
-                if ($shipmentType === AbstractType::SHIPMENT_SEPARATELY) {
-                    // a bundle with children (shipped separately) is not shipped, ignore.
-                    continue;
-                }
+                continue;
             }
 
             $qty = $shipmentItems[$item->getSku()] ?? 0;
