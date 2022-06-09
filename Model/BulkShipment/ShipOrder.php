@@ -80,7 +80,6 @@ class ShipOrder implements ShipOrderInterface
     {
         $shipmentItems = [];
         foreach ($items as $item) {
-			$this->_logger->info('item:' . $item->getSku() . ' gty:' . $item->getQtyOrdered());			
             if ($item->getIsVirtual()) {
                 continue;
             }
