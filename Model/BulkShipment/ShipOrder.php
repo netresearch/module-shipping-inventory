@@ -73,6 +73,10 @@ class ShipOrder implements ShipOrderInterface
     /**
      * Translate OrderItemInterface array to sku => product quantity array.
      *
+     * For proper stock deduction of bundled items, the selected child items
+     * are always taken into account, regardless of the "Ship Bundle Items"
+     * product setting, but never the bundle itself.
+     *
      * @param OrderItemInterface[] $items
      * @return float[]
      */
@@ -89,21 +93,8 @@ class ShipOrder implements ShipOrderInterface
                 continue;
             }
 
-            if ($item->getParentItem() && $item->getParentItem()->getProductType() === Bundle::TYPE_CODE) {
-                $parentItem = $item->getParentItem();
-                $shipmentType = (int)$parentItem->getProductOptionByCode('shipment_type');
-                if ($shipmentType === AbstractType::SHIPMENT_TOGETHER) {
-                    // children of a bundle (shipped together) are not shipped, ignore.
-                    continue;
-                }
-            }
-
             if ($item->getProductType() === Bundle::TYPE_CODE) {
-                $shipmentType = (int)$item->getProductOptionByCode('shipment_type');
-                if ($shipmentType === AbstractType::SHIPMENT_SEPARATELY) {
-                    // a bundle with children (shipped separately) is not shipped, ignore.
-                    continue;
-                }
+                continue;
             }
 
             $qty = $shipmentItems[$item->getSku()] ?? 0;
