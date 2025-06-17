@@ -173,15 +173,16 @@ class ShipOrder implements ShipOrderInterface
      * @throws LocalizedException
      * @throws \Exception
      */
+    #[\Override]
     public function execute(
         $orderId,
         array $items = [],
         $notify = false,
         $appendComment = false,
-        ShipmentCommentCreationInterface $comment = null,
+        ?ShipmentCommentCreationInterface $comment = null,
         array $tracks = [],
         array $packages = [],
-        ShipmentCreationArgumentsInterface $arguments = null
+        ?ShipmentCreationArgumentsInterface $arguments = null
     ) {
         if ($arguments === null) {
             $arguments = $this->argumentsFactory->create();

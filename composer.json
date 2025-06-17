@@ -21,14 +21,14 @@
     ]
   },
   "require": {
-    "php": "^8.2.0",
-    "magento/framework": "^103.0.6",
-    "magento/module-bundle": "^101.0.6",
-    "magento/module-catalog": "^104.0.6",
-    "magento/module-configurable-product": "^100.4.6",
+    "php": "^8.3.0 || ^8.4.0",
+    "magento/framework": "^103.0.8",
+    "magento/module-bundle": "^101.0.8",
+    "magento/module-catalog": "^104.0.8",
+    "magento/module-configurable-product": "^100.4.8",
     "magento/module-inventory-source-selection-api": "1.4.*",
-    "magento/module-sales": "^103.0.6",
-    "netresearch/module-shipping-core": "^3.0.0",
-    "netresearch/module-shipping-ui": "^2.5.0"
+    "magento/module-sales": "^103.0.8",
+    "netresearch/module-shipping-core": "^4.0.0",
+    "netresearch/module-shipping-ui": "^2.6.0"
   }
 }
