@@ -14,13 +14,13 @@ manually through the packaging popup or automated via cron or mass action.
 Requirements
 ------------
 
-* PHP >= 8.2
+* PHP >= 8.3
 
 Compatibility
 -------------
 
-* Magento >= 2.4.6
-* DHL Shipping M2  >= 2.11.0
+* Magento >= 2.4.8
+* DHL Shipping M2  >= 2.14.0
 
 License
 -------
