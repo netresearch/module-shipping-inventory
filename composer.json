@@ -28,7 +28,7 @@
     "magento/module-configurable-product": "^100.4.8",
     "magento/module-inventory-source-selection-api": "1.4.*",
     "magento/module-sales": "^103.0.8",
-    "netresearch/module-shipping-core": "^4.0.0",
+    "netresearch/module-shipping-core": "^5.0.0",
     "netresearch/module-shipping-ui": "^2.6.0"
   }
 }
